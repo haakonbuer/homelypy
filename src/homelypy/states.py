@@ -16,8 +16,11 @@ class State:
 
 
 def extract_value_and_last_updated(data: dict) -> tuple[Any, datetime.datetime]:
-    timestamp = parse(data["lastUpdated"]) if data["lastUpdated"] is not None else None
-    return data["value"], timestamp
+    if bool(data):
+        timestamp = parse(data["lastUpdated"]) if data["lastUpdated"] is not None else None
+        return data["value"], timestamp
+    else:
+        return None, None
 
 
 @dataclass

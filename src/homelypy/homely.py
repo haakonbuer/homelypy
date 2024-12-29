@@ -148,13 +148,17 @@ class Homely:
         response = requests.get(self.url(LOCATIONS_ENDPOINT), headers=self.authorisation_header)
         if response.status_code != 200:
             raise ConnectionFailedException(response.text)
+        
+        # TODO: remove...
+        #print(response.json())
+        
         return [
             Location(
                 location_data["name"],
                 location_data["role"],
                 location_data["userId"],
                 location_data["locationId"],
-                location_data["gatewayserial"],
+                'MISSING',
             )
             for location_data in response.json()
         ]
